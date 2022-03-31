@@ -1,79 +1,57 @@
-import React from 'react';
+import React, { Component } from "react";
 import {
-  Form,
-  Select,
-  InputNumber,
-  DatePicker,
-  Switch,
-  Slider,
-  Button,
-  Rate,
-  Typography,
-  Space,
-  Divider,
-} from 'antd';
-import './App.less';
+  Card, Col, Row, Input, Button, PageHeader, message, Popconfirm
+} from "antd";
+import { LogoutOutlined } from '@ant-design/icons';
+import "./App.less";
 
-const { Option } = Select;
-const { Title } = Typography;
 
-const App = () => (
-  <>
-    <section style={{ textAlign: 'center', marginTop: 48, marginBottom: 40 }}>
-      <Space align="start">
-        <img
-          style={{width: 40, height: 40 }}
-          src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-          alt="Ant Design"
+
+class App extends Component {
+  state = {
+    
+    status: 0
+  };
+
+
+ 
+
+  render() {
+
+
+    return (
+      <div>
+        <PageHeader
+          className="site-page-header"
+          title="Assignment"
+          extra={[
+            <Button className={this.state.status === 0 ? "hide" : " "} type="primary" key="1" onClick={this.logout} danger><LogoutOutlined />Logout</Button>,
+          ]}
         />
-        <Title level={2} style={{ marginBottom: 0 }}>
-          Ant Design
-        </Title>
-      </Space>
-    </section>
-    <Divider style={{ marginBottom: 60 }}>Form</Divider>
-    <Form labelCol={{ span: 8 }} wrapperCol={{ span: 8 }}>
-      <Form.Item label="数字输入框">
-        <InputNumber min={1} max={10} defaultValue={3} />
-        <span className="ant-form-text"> 台机器</span>
-        <a href="https://ant.design">链接文字</a>
-      </Form.Item>
-      <Form.Item label="开关">
-        <Switch defaultChecked />
-      </Form.Item>
-      <Form.Item label="滑动输入条">
-        <Slider defaultValue={70} />
-      </Form.Item>
-      <Form.Item label="选择器">
-        <Select defaultValue="lucy" style={{ width: 192 }}>
-          <Option value="jack">jack</Option>
-          <Option value="lucy">lucy</Option>
-          <Option value="disabled" disabled>disabled</Option>
-          <Option value="yiminghe">yiminghe</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item label="日期选择框">
-        <DatePicker />
-      </Form.Item>
-      <Form.Item label="日期范围选择框">
-        <DatePicker.RangePicker />
-      </Form.Item>
-      <Form.Item label="评分">
-        <Rate defaultValue={5} />
-      </Form.Item>
-      <Form.Item wrapperCol={{ span: 8, offset: 8 }}>
-        <Space>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-          <Button>
-            Cancel
-          </Button>
-        </Space>
-      </Form.Item>
-    </Form>
-  </>
-);
 
+        {this.state.status === 1 ? <Faculty data={this.state.userDetails} />
+          : this.state.status === 2 ? (<Admin data={this.state.userDetails} />)
+            : this.state.status === 3 ? (<Student data={this.state.userDetails} />)
+              : (
+                <div>
+                  <Row justify="center">
+                    <Col span={6} >
+                      <Card title="Login Portal" style={{ width: "100%", marginTop: "40%" }} bordered type="inner">
+                        <Row gutter={[16, 16]} align="middle">
+                          <Col span={24}><Input placeholder="Username" onChange={this.onChangeInputBox1} /></Col>
+                          <Col span={24}><Input placeholder="Password" onChange={this.onChangeInputBox2} /></Col>
+                          <Col span={24}><Button block type="primary" onClick={this.login}>Submit</Button></Col>
+                        </Row>
+                      </Card>
+                    </Col>
+                  </Row>
+
+                </div>
+              )}
+      </div>
+    );
+  }
+}
 
 export default App;
+
