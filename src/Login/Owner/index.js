@@ -31,7 +31,16 @@ class App extends Component {
     };
 
     
-
+    Home = () => {
+        this.setState({
+            status: 0,
+        });
+    };
+    Booking = () => {
+        this.setState({
+            status: 1,
+        });
+    };
 
 
     render() {
@@ -47,7 +56,7 @@ class App extends Component {
                                 Home
                             </Menu.Item>
                            
-                            <Menu.Item key="2" icon={<HomeOutlined />} onClick={this.Home}>
+                            <Menu.Item key="2" icon={<HomeOutlined />} onClick={this.Booking}>
                                 Customer Booking
                             </Menu.Item>
                         </Menu>

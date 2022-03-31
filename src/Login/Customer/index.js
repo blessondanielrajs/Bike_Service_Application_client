@@ -30,7 +30,17 @@ class App extends Component {
             collapsed: !this.state.collapsed,
         });
     };
+    Home = () => {
+        this.setState({
+            status: 0,
+        });
+    };
 
+    History = () => {
+        this.setState({
+            status: 1,
+        });
+    };
 
 
 
@@ -48,7 +58,7 @@ class App extends Component {
                                 Home
                             </Menu.Item>
 
-                            <Menu.Item key="2" icon={<HomeOutlined />} onClick={this.Home}>
+                            <Menu.Item key="2" icon={<HomeOutlined />} onClick={this.History}>
                                 Booking History
                             </Menu.Item>
                         </Menu>

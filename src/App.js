@@ -7,13 +7,17 @@ import "./App.less";
 import Owner from './Login/Owner';
 import Customer from './Login/Customer';
 import Register from './Registration';
+import axios from "axios";
+import config from './config';
+
+
 
 
 
 class App extends Component {
   state = {
     
-    status: 2,
+    status: 0,
     isModalVisible: false,
     USERNAME:"",
     PASSWORD:""
@@ -27,6 +31,39 @@ class App extends Component {
     this.setState({ PASSWORD: e.target.value });
 
   };
+  login = () => {
+    let flag = 0;
+
+    let PASSWORD = this.state.PASSWORD;
+
+  
+    if (this.state.USERNAME === "") {
+      message.error("Invaild Input Username");
+      flag = 1;
+      return false;
+    }
+    else if (PASSWORD === "" ) {
+      message.error("Invaild Password");
+      flag = 1;
+      return false;
+    }
+    else if (flag === 0) {
+
+      let data = {
+        USERNAME: this.state.USERNAME.trim(),
+        PASSWORD: this.state.PASSWORD.trim(),
+      }
+
+
+      axios.post(config.serverurl + "/bike_service/login", data)
+        .then(res => {
+
+         console.log(res.data);
+        })
+    }
+  }
+
+
 
 
 
