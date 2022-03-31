@@ -21,7 +21,7 @@ const { Title, Paragraph, Text, Link } = Typography;
 class App extends Component {
     state = {
         collapsed: false,
-        status: 1,
+        status: 0,
     };
 
 

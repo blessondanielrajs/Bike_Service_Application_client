@@ -18,10 +18,11 @@ class App extends Component {
     state = {
         collapsed: false,
         status: 0,
-        vechicle_name:"",
-        vechicle_model:"",
-        vechicle_number:""
-       
+        vechicle_name: "",
+        vechicle_model: "",
+        vechicle_number: "",
+        services:""
+
     }
 
     onChangeInputBox1 = (e) => {
@@ -38,6 +39,11 @@ class App extends Component {
         this.setState({ vechicle_number: e.target.value });
 
     };
+    onChange(checkedValues) {
+       
+        this.setState({ services: checkedValues });
+    }
+
 
     render() {
 
@@ -72,14 +78,14 @@ class App extends Component {
                         </Row>
                     </Checkbox.Group>            </Col>
 
-                    <Col span={8}>  
-                     <DatePicker placeholder="Date of Service" showTime onOk={this.onOk1} />
+                    <Col span={8}>
+                        <DatePicker placeholder="Date of Service" showTime onOk={this.onOk1} />
 
                     </Col>
-                    <Col span={6}> 
-                    <Button block type="primary" onClick={this.create} >Book</Button>
+                    <Col span={6}>
+                        <Button block type="primary" onClick={this.create} >Book</Button>
                     </Col>
-                    </Row>
+                </Row>
             </div>
         );
     }

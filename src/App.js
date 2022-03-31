@@ -13,7 +13,7 @@ import Register from './Registration';
 class App extends Component {
   state = {
     
-    status: 1,
+    status: 2,
     isModalVisible: false,
     USERNAME:"",
     PASSWORD:""

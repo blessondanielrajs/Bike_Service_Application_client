@@ -20,8 +20,8 @@ class App extends Component {
         status: 0,
         vechicle_name:"",
         vechicle_model:"",
-        vechicle_number:""
-       
+        vechicle_number:"",
+        services:""
     }
     onChangeInputBox1 = (e) => {
         this.setState({ vechicle_name: e.target.value });
@@ -37,7 +37,10 @@ class App extends Component {
         this.setState({ vechicle_number: e.target.value });
 
     };
+    onChange(checkedValues) {
 
+        this.setState({ services: checkedValues });
+    }
   
 
 
