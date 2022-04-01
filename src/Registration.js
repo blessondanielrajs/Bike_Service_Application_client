@@ -36,12 +36,12 @@ class App extends Component {
     };
 
     onChangeInputBox4 = (e) => {
-        this.setState({ password: e.target.value });
+        this.setState({ place: e.target.value });
 
     };
 
     onChangeInputBox5 = (e) => {
-        this.setState({ place: e.target.value });
+        this.setState({ password: e.target.value });
 
     };
 

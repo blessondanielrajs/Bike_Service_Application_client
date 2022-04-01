@@ -20,7 +20,10 @@ class App extends Component {
     status: 0,
     isModalVisible: false,
     USERNAME:"",
-    PASSWORD:""
+    PASSWORD:"",
+    userDetails: {},
+
+
   };
 
   onChangeInputBox1 = (e) => {
@@ -58,7 +61,21 @@ class App extends Component {
       axios.post(config.serverurl + "/bike_service/login", data)
         .then(res => {
 
-         console.log(res.data);
+          if (res.data.Status === 1) {
+
+            this.setState({ userDetails: res.data.user_details });
+            if (res.data.user_details.role === 'owner') {
+              this.setState({ status: 1 });
+            }
+            else if (res.data.user_details.role === 'customer') {
+              this.setState({ status: 2 });
+            }
+           
+          }
+          else {
+            message.error("Invalid User !");
+          }
+
         })
     }
   }

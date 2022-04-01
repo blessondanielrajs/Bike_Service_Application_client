@@ -9,7 +9,8 @@ import {
     HomeOutlined,
     SearchOutlined
 } from "@ant-design/icons";
-
+import axios from "axios";
+import config from '../../config';
 const { Header, Sider, Content } = Layout;
 const { Title, Paragraph, Text, Link } = Typography;
 const { Option } = Select;
@@ -18,8 +19,21 @@ class App extends Component {
     state = {
         collapsed: false,
         status: 0,
+        booking:""
        
     }
+    componentDidMount() {
+       
+        axios.post(config.serverurl + "/bike_service/owner/booking")
+            .then(res => {
+
+                this.setState({ booking: res.data.data});
+              
+             
+
+            })
+    }
+
 
 
 
@@ -28,31 +42,31 @@ class App extends Component {
         const columns = [
             {
                 title: 'Name',
-                dataIndex: 'json',
+                dataIndex: 'customer_name',
                 key: 'key',
 
             },
             {
                 title: 'Vechicle Name',
-                dataIndex: 'msg',
+                dataIndex: 'vechicle_name',
                 key: 'key',
 
             },
             {
                 title: 'Vechicle Number',
-                dataIndex: 'msg',
+                dataIndex: 'vechicle_number',
                 key: 'key',
 
             },
             {
                 title: 'phone Number',
-                dataIndex: 'msg',
+                dataIndex: 'customer_ph_no',
                 key: 'key',
 
             },
             {
                 title: 'Email Id',
-                dataIndex: 'msg',
+                dataIndex: 'customer_email',
                 key: 'key',
 
             },
@@ -71,7 +85,7 @@ class App extends Component {
                         <Title level={2}>Booking History</Title>
                     </Col>
                     <Col span={24}>
-                        <Table dataSource={this.state.data} columns={columns} />
+                        <Table dataSource={this.state.booking} columns={columns} />
                     </Col>
                 </Row>
             </div>

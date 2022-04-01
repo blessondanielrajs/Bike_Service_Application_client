@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Typography, Row, Col, Table, Empty, Select, Button, Space, Input, Checkbox, DatePicker } from "antd";
+import { Layout, Menu, Typography, Row, Col, Table, Empty, Select, Button, Space, Input, Checkbox, DatePicker, message } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
@@ -10,9 +10,22 @@ import {
     SearchOutlined
 } from "@ant-design/icons";
 
+import axios from "axios";
+import config from '../../config';
+import moment from 'moment';
+import momenttimezone from 'moment-timezone';
+momenttimezone.tz.setDefault("Asia/Kolkata");
+const dateFormatList = 'DD/MM/YYYY HH:mm:ss';
+
+
+
+
 const { Header, Sider, Content } = Layout;
 const { Title, Paragraph, Text, Link } = Typography;
 const { Option } = Select;
+
+
+
 
 class App extends Component {
     state = {
@@ -21,7 +34,8 @@ class App extends Component {
         vechicle_name: "",
         vechicle_model: "",
         vechicle_number: "",
-        services:""
+        services: "",
+        BookDate: ""
 
     }
 
@@ -39,13 +53,82 @@ class App extends Component {
         this.setState({ vechicle_number: e.target.value });
 
     };
-    onChange(checkedValues) {
-       
-        this.setState({ services: checkedValues });
+
+
+
+    onOk1 = (value) => {
+        var i = (moment(value).unix());
+        //console.log(i);
+        this.setState({ BookDate: i })
+        // console.log(moment.unix(i).format(dateFormatList))
     }
 
 
+    Book = () => {
+        let flag = 0;
+        if (this.state.vechicle_name === "") {
+            message.error("Enter Vechicle Name ");
+            flag = 1;
+            return false;
+        }
+        else if (this.state.vechicle_model === "") {
+            message.error("Enter Vechicle Model ");
+            flag = 1;
+            return false;
+        }
+        else if (this.state.vechicle_number === "") {
+            message.error("Enter Vechicle Number Date");
+            flag = 1;
+            return false;
+        }
+        else if (this.state.services === "") {
+            message.error("Select Services");
+            flag = 1;
+            return false;
+        }
+        else if (this.state.BookDate === "") {
+            message.error("Enter BookDate");
+            flag = 1;
+            return false;
+        }
+
+        else if (flag === 0) {
+
+            let data = {
+                customer_id: this.props.data._id,
+                customer_name: this.props.data.name,
+                customer_ph_no: this.props.data.ph_no,
+                customer_email: this.props.data.email,
+                customer_place: this.props.data.place,
+                vechicle_name: this.state.vechicle_name,
+                vechicle_model: this.state.vechicle_model,
+                vechicle_number: this.state.vechicle_number,
+                services: this.state.services,
+                BookDate: this.state.BookDate
+            }
+            console.log(data)
+            axios.post(config.serverurl + "/bike_service/customer/booking", data)
+                .then(res => {
+                    if (res.data.status === 1) {
+                        message.success("Successfully Created");
+
+                    }
+                    else {
+                        message.error("!Operation Failed");
+                    }
+
+                })
+        }
+    }
+
+    handleChange = (value) => {
+        // console.log(`selected ${value}`);
+        this.setState({ services: value });
+
+    }
+
     render() {
+
 
 
         return (
@@ -63,27 +146,27 @@ class App extends Component {
                     <Col span={6}>
                         <Input placeholder="Vechicle Number" style={{ width: "100%" }} onChange={this.onChangeInputBox3} />
                     </Col>
-                    <Col span={24}>     <Checkbox.Group style={{ width: '100%' }} onChange={this.onChange}>
-                        <Row>
-                            <Col span={6}>
-                                <Checkbox value="A">General Service</Checkbox>
-                            </Col>
-                            <Col span={6}>
-                                <Checkbox value="B">Oil Change</Checkbox>
-                            </Col>
-                            <Col span={6}>
-                                <Checkbox value="C">Water Wash</Checkbox>
-                            </Col>
 
-                        </Row>
-                    </Checkbox.Group>            </Col>
+                    <Col span={12}>
+                        <Select mode="tags" style={{ width: '100%' }} placeholder="Service Types" onChange={this.handleChange}>
+                            <Option value="General Service" >   General Service </Option>
+
+                            <Option value="Oil Change" >   Oil Change </Option>
+
+                            <Option value="Water Wash">   Water Wash </Option>
+                        </Select>
+
+                    </Col>
+
+
+
 
                     <Col span={8}>
                         <DatePicker placeholder="Date of Service" showTime onOk={this.onOk1} />
 
                     </Col>
                     <Col span={6}>
-                        <Button block type="primary" onClick={this.create} >Book</Button>
+                        <Button block type="primary" onClick={this.Book} >Book</Button>
                     </Col>
                 </Row>
             </div>

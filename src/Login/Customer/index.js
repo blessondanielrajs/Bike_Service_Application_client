@@ -62,7 +62,7 @@ class App extends Component {
                                 Booking History
                             </Menu.Item>
                         </Menu>
-                        
+
                     </Sider>
 
                     <Layout className="site-layout">
@@ -98,16 +98,16 @@ class App extends Component {
                                     </div>
                                 ) :
 
-                                
-                                (
+
+                                    (
 
 
-                                   
 
-                                                <div>
 
-                                                </div>
-                                            )}
+                                        <div>
+
+                                        </div>
+                                    )}
                             </div>
 
 
