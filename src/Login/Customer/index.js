@@ -78,11 +78,12 @@ class App extends Component {
 
                         <Content
                             className="site-layout-background"
-                            style={{
+                           style={{
                                 margin: "16px 16px",
                                 padding: 24,
-                                minHeight: 280,
+                               minHeight: 280,
                             }}
+                        
                         >
                             <div>
                                 {this.state.status === 0 ? (

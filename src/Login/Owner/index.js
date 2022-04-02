@@ -11,6 +11,7 @@ import {
 } from "@ant-design/icons";
 import Home from "./home";
 import Customer_Booking from "./customer_booking";
+import Delivery from "./delivery";
 
 
 
@@ -42,7 +43,11 @@ class App extends Component {
         });
     };
 
-
+    Delivery = () => {
+        this.setState({
+            status: 2,
+        });
+    };
     render() {
         return (
             <div>
@@ -58,6 +63,9 @@ class App extends Component {
                            
                             <Menu.Item key="2" icon={<HomeOutlined />} onClick={this.Booking}>
                                 Customer Booking
+                            </Menu.Item>
+                            <Menu.Item key="3" icon={<HomeOutlined />} onClick={this.Delivery}>
+                                Booking Delivery
                             </Menu.Item>
                         </Menu>
                     </Sider>
@@ -94,9 +102,12 @@ class App extends Component {
                                         <Customer_Booking data={this.props.data} />
                                     </div>
                                 ) :
+                                        this.state.status === 2 ? (
+                                            <div>
+                                                <Delivery data={this.props.data} />
+                                            </div>
 
-
-                                    (
+                                   ): (
 
 
 

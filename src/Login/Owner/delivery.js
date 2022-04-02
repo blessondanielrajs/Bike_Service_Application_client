@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Typography, Row, Col, Table, Empty, Select, Button, Space, Input, Checkbox, DatePicker, Tag } from "antd";
+import { Layout, Menu, Typography, Row, Col, Table, Empty, Select, Button, Space, Input, Checkbox, DatePicker, Switch, Tag } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
@@ -7,7 +7,8 @@ import {
     DownloadOutlined,
     UploadOutlined,
     HomeOutlined,
-    SearchOutlined
+    SearchOutlined,
+    CheckOutlined, CloseOutlined
 } from "@ant-design/icons";
 import axios from "axios";
 import config from '../../config';
@@ -19,23 +20,52 @@ class App extends Component {
     state = {
         collapsed: false,
         status: 0,
-        booking:""
-       
+        booking: ""
+
     }
     componentDidMount() {
-       
+
         axios.post(config.serverurl + "/bike_service/owner/booking")
             .then(res => {
 
-                this.setState({ booking: res.data.data});
-              
-             
+                this.setState({ booking: res.data.data });
+
+
 
             })
     }
 
+    switch = (record) => {
+        console.log(record._id);
+        let data = {
+            "_id": record
+        }
+        axios.post(config.serverurl + "/bike_service/owner/delivery", data)
+            .then(res => {
+                if (res.data.status === 1) {
+                    this.setState({ booking: res.data.data });
+                }
 
 
+
+            })
+    }
+
+    delete = (record) => {
+        console.log(record._id);
+        let data = {
+            "_id": record
+        }
+        axios.post(config.serverurl + "/bike_service/owner/delete", data)
+            .then(res => {
+                if (res.data.status === 1) {
+                    this.setState({ booking: res.data.data });
+                }
+
+
+
+            })
+    }
 
     render() {
 
@@ -84,13 +114,47 @@ class App extends Component {
 
 
             },
+            {
+                title: 'Delete_Booking',
+
+                render: (text, record) => (
+                    <Space>
+                        <Button type="primary" onClick={this.delete.bind(this, record)}>
+                            Delete
+                        </Button>
+                    </Space>
+
+                ),
+
+
+            },
+            {
+                title: "Delivery Report",
+                render: (text, record) => (
+
+
+                    <Switch
+                        checkedChildren={<CheckOutlined />}
+                        unCheckedChildren={<CloseOutlined />}
+
+                        onChange={this.switch.bind(this, record)}
+
+                        defaultChecked={(record.status === 2) ? true : false}
+                        disabled={(record.status === 2) ? true : false}
+                    />
+
+
+                ),
+            },
+
+
 
         ];
         return (
             <div>
                 <Row gutter={[16, 24]}>
                     <Col span={24}>
-                        <Title level={2}>Booking History</Title>
+                        <Title level={2}>Booking Delivery</Title>
                     </Col>
                     <Col span={24}>
                         <Table dataSource={this.state.booking} columns={columns} />

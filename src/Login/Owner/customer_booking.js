@@ -132,6 +132,7 @@ class App extends Component {
         else if (flag === 0) {
 
             let data = {
+                "_id":this.props.data._id,
                 customer_name: this.state.customer_name,
                 customer_ph_no: this.state.customer_ph_no,
                 customer_email: this.state.customer_email,
