@@ -1,28 +1,13 @@
 import React, { Component } from "react";
-import { Layout, Menu, Typography, Row, Col, Table, Empty, Select, Button, message, Space, Input, Checkbox, DatePicker } from "antd";
-import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    UserOutlined,
-    DownloadOutlined,
-    UploadOutlined,
-    HomeOutlined,
-    SearchOutlined
-} from "@ant-design/icons";
+import { Typography, Row, Col, Select, Button, message, Input, DatePicker } from "antd";
 import axios from "axios";
 import config from '../../config';
 import moment from 'moment';
 import momenttimezone from 'moment-timezone';
 momenttimezone.tz.setDefault("Asia/Kolkata");
 const dateFormatList = 'DD/MM/YYYY HH:mm:ss';
-
-
-const { Header, Sider, Content } = Layout;
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title } = Typography;
 const { Option } = Select;
-
-
-
 
 class App extends Component {
     state = {
@@ -79,7 +64,7 @@ class App extends Component {
         this.setState({ services: value });
 
     };
-  
+  //functions to specfic customer booking
     Book = () => {
         let flag = 0;
         if (this.state.customer_name === "")
@@ -157,13 +142,9 @@ class App extends Component {
         }
     }
 
-
-
     render() {
-
-
         return (
-            <div>
+            <div className="fix">
                 <Row gutter={[16, 24]}>
                     <Col span={24}>
                         <Title level={2}>Service Booking</Title>

@@ -3,20 +3,16 @@ import { Layout, Menu, Typography } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    PlusOutlined,
-
-    UploadOutlined,
-    HomeOutlined
-
+    HomeOutlined,
+    TeamOutlined,
+    AppstoreTwoTone
 } from "@ant-design/icons";
 import Home from "./home";
 import Customer_Booking from "./customer_booking";
 import Delivery from "./delivery";
 
-
-
 const { Header, Sider, Content } = Layout;
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title } = Typography;
 
 class App extends Component {
     state = {
@@ -24,14 +20,12 @@ class App extends Component {
         status: 0,
     };
 
-
     toggle = () => {
         this.setState({
             collapsed: !this.state.collapsed,
         });
     };
 
-    
     Home = () => {
         this.setState({
             status: 0,
@@ -60,11 +54,11 @@ class App extends Component {
                             <Menu.Item key="1" icon={<HomeOutlined />} onClick={this.Home}>
                                 Home
                             </Menu.Item>
-                           
-                            <Menu.Item key="2" icon={<HomeOutlined />} onClick={this.Booking}>
+
+                            <Menu.Item key="2" icon={<TeamOutlined />} onClick={this.Booking}>
                                 Customer Booking
                             </Menu.Item>
-                            <Menu.Item key="3" icon={<HomeOutlined />} onClick={this.Delivery}>
+                            <Menu.Item key="3" icon={<AppstoreTwoTone />} onClick={this.Delivery}>
                                 Booking Delivery
                             </Menu.Item>
                         </Menu>
@@ -87,6 +81,9 @@ class App extends Component {
                                 margin: "16px 16px",
                                 padding: 24,
                                 minHeight: 280,
+
+
+
                             }}
                         >
                             <div>
@@ -94,29 +91,23 @@ class App extends Component {
                                     <div>
                                         <Home data={this.props.data} />
                                     </div>
-
-
-
                                 ) : this.state.status === 1 ? (
                                     <div>
                                         <Customer_Booking data={this.props.data} />
                                     </div>
                                 ) :
-                                        this.state.status === 2 ? (
-                                            <div>
-                                                <Delivery data={this.props.data} />
-                                            </div>
+                                    this.state.status === 2 ? (
+                                        <div>
+                                            <Delivery data={this.props.data} />
+                                        </div>
 
-                                   ): (
-
-
-
+                                    ) : (
 
                                         <div>
 
                                         </div>
                                     )}
-                            </div> 
+                            </div>
                         </Content>
                     </Layout>
                 </Layout>
@@ -124,5 +115,4 @@ class App extends Component {
         );
     }
 }
-
 export default App;

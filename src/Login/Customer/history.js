@@ -1,25 +1,12 @@
 import React, { Component } from "react";
-import { Layout, Menu, Typography, Row, Col, Table, Empty, Select, Button, Space, Input, Checkbox, DatePicker, Tag } from "antd";
-import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    UserOutlined,
-    DownloadOutlined,
-    UploadOutlined,
-    HomeOutlined,
-    SearchOutlined
-} from "@ant-design/icons";
+import { Typography, Row, Col, Table, Space, Tag } from "antd";
 import axios from "axios";
 import config from '../../config';
 import moment from 'moment';
-
 import momenttimezone from 'moment-timezone';
 momenttimezone.tz.setDefault("Asia/Kolkata");
 const dateFormatList = 'DD/MM/YYYY HH:mm:ss';
-const { Header, Sider, Content } = Layout;
-const { Title, Paragraph, Text, Link } = Typography;
-const { Option } = Select;
-
+const { Title } = Typography;
 
 class App extends Component {
     state = {
@@ -27,16 +14,13 @@ class App extends Component {
         status: 0,
         booking_history: ""
     }
-
+//funtions to booking history
     componentDidMount() {
         let data = { _id: this.props.data._id }
         axios.post(config.serverurl + "/bike_service/customer/history", data)
             .then(res => {
-
                 this.setState({ booking_history: res.data.data });
                 console.log(res.data);
-
-
             })
     }
 
@@ -74,7 +58,7 @@ class App extends Component {
 
         console.log(this.props.data)
         return (
-            <div>
+            <div className="fix">
                 <Row gutter={[16, 24]}>
                     <Col span={24}>
                         <Title level={2}>Booking History</Title>

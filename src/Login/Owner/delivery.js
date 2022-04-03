@@ -1,20 +1,11 @@
 import React, { Component } from "react";
-import { Layout, Menu, Typography, Row, Col, Table, Empty, Select, Button, Space, Input, Checkbox, DatePicker, Switch, Tag } from "antd";
+import {  Typography, Row, Col, Table, Button, Space,Switch, Tag } from "antd";
 import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    UserOutlined,
-    DownloadOutlined,
-    UploadOutlined,
-    HomeOutlined,
-    SearchOutlined,
     CheckOutlined, CloseOutlined
 } from "@ant-design/icons";
 import axios from "axios";
 import config from '../../config';
-const { Header, Sider, Content } = Layout;
-const { Title, Paragraph, Text, Link } = Typography;
-const { Option } = Select;
+const { Title } = Typography;
 
 class App extends Component {
     state = {
@@ -23,18 +14,16 @@ class App extends Component {
         booking: ""
 
     }
+
+    //funtion to display customer booking
     componentDidMount() {
 
         axios.post(config.serverurl + "/bike_service/owner/booking")
             .then(res => {
 
                 this.setState({ booking: res.data.data });
-
-
-
             })
     }
-
     switch = (record) => {
         console.log(record._id);
         let data = {
@@ -45,12 +34,9 @@ class App extends Component {
                 if (res.data.status === 1) {
                     this.setState({ booking: res.data.data });
                 }
-
-
-
             })
     }
-
+    //functions to owner access a delete a customer booking
     delete = (record) => {
         console.log(record._id);
         let data = {
@@ -61,9 +47,6 @@ class App extends Component {
                 if (res.data.status === 1) {
                     this.setState({ booking: res.data.data });
                 }
-
-
-
             })
     }
 
@@ -111,8 +94,6 @@ class App extends Component {
                                 : ""}
                     </div>
                 ),
-
-
             },
             {
                 title: 'Delete_Booking',
@@ -125,8 +106,6 @@ class App extends Component {
                     </Space>
 
                 ),
-
-
             },
             {
                 title: "Delivery Report",
@@ -146,12 +125,9 @@ class App extends Component {
 
                 ),
             },
-
-
-
         ];
         return (
-            <div>
+            <div className="fix">
                 <Row gutter={[16, 24]}>
                     <Col span={24}>
                         <Title level={2}>Booking Delivery</Title>

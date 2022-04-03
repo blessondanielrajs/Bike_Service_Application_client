@@ -3,27 +3,20 @@ import { Layout, Menu, Typography } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    PlusOutlined,
-
-    UploadOutlined,
-    HomeOutlined
-
+    HomeOutlined,
+    DatabaseTwoTone
 } from "@ant-design/icons";
 import Home from "./home";
 import History from "./history";
 
-
-
-
 const { Header, Sider, Content } = Layout;
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title } = Typography;
 
 class App extends Component {
     state = {
         collapsed: false,
         status: 0,
     };
-
 
     toggle = () => {
         this.setState({
@@ -41,13 +34,10 @@ class App extends Component {
             status: 1,
         });
     };
-
-
-
-
+//render a page to path
     render() {
         return (
-            <div>
+            <div className="fix">
                 <Layout>
                     <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
                         <div className="logo" >
@@ -58,13 +48,12 @@ class App extends Component {
                                 Home
                             </Menu.Item>
 
-                            <Menu.Item key="2" icon={<HomeOutlined />} onClick={this.History}>
+                            <Menu.Item key="2" icon={<DatabaseTwoTone />} onClick={this.History}>
                                 Booking History
                             </Menu.Item>
                         </Menu>
 
                     </Sider>
-
                     <Layout className="site-layout">
                         <Header className="site-layout-background" style={{ padding: 0 }}>
                             {React.createElement(
@@ -75,43 +64,30 @@ class App extends Component {
                                 }
                             )}
                         </Header>
-
                         <Content
                             className="site-layout-background"
-                           style={{
+                            style={{
                                 margin: "16px 16px",
                                 padding: 24,
-                               minHeight: 280,
+                                minHeight: 280,
                             }}
-                        
                         >
                             <div>
                                 {this.state.status === 0 ? (
                                     <div>
                                         <Home data={this.props.data} />
                                     </div>
-
-
-
                                 ) : this.state.status === 1 ? (
                                     <div>
                                         <History data={this.props.data} />
                                     </div>
                                 ) :
-
-
                                     (
-
-
-
-
                                         <div>
 
                                         </div>
                                     )}
                             </div>
-
-
                         </Content>
                     </Layout>
                 </Layout>

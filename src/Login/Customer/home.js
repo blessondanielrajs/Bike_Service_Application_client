@@ -1,15 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Typography, Row, Col, Table, Empty, Select, Button, Space, Input, Checkbox, DatePicker, message } from "antd";
-import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    UserOutlined,
-    DownloadOutlined,
-    UploadOutlined,
-    HomeOutlined,
-    SearchOutlined
-} from "@ant-design/icons";
-
+import { Typography, Row, Col, Select, Button, Input, DatePicker, message } from "antd";
 import axios from "axios";
 import config from '../../config';
 import moment from 'moment';
@@ -17,15 +7,8 @@ import momenttimezone from 'moment-timezone';
 momenttimezone.tz.setDefault("Asia/Kolkata");
 const dateFormatList = 'DD/MM/YYYY HH:mm:ss';
 
-
-
-
-const { Header, Sider, Content } = Layout;
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title } = Typography;
 const { Option } = Select;
-
-
-
 
 class App extends Component {
     state = {
@@ -36,34 +19,24 @@ class App extends Component {
         vechicle_number: "",
         services: "",
         BookDate: ""
-
     }
 
     onChangeInputBox1 = (e) => {
         this.setState({ vechicle_name: e.target.value });
 
     };
-
     onChangeInputBox2 = (e) => {
         this.setState({ vechicle_model: e.target.value });
-
     };
-
     onChangeInputBox3 = (e) => {
         this.setState({ vechicle_number: e.target.value });
-
     };
-
-
-
     onOk1 = (value) => {
         var i = (moment(value).unix());
         //console.log(i);
         this.setState({ BookDate: i })
         // console.log(moment.unix(i).format(dateFormatList))
     }
-
-
     Book = () => {
         let flag = 0;
         if (this.state.vechicle_name === "") {
@@ -91,9 +64,7 @@ class App extends Component {
             flag = 1;
             return false;
         }
-
         else if (flag === 0) {
-
             let data = {
                 customer_id: this.props.data._id,
                 customer_name: this.props.data.name,
@@ -111,7 +82,6 @@ class App extends Component {
                 .then(res => {
                     if (res.data.status === 1) {
                         message.success("Successfully Created");
-
                     }
                     else {
                         message.error("!Operation Failed");
@@ -120,19 +90,13 @@ class App extends Component {
                 })
         }
     }
-
     handleChange = (value) => {
-        // console.log(`selected ${value}`);
         this.setState({ services: value });
-
     }
 
     render() {
-
-
-
         return (
-            <div>
+            <div className="fix">
                 <Row gutter={[16, 24]}>
                     <Col span={24}>
                         <Title level={2}>Service Booking</Title>
@@ -157,10 +121,6 @@ class App extends Component {
                         </Select>
 
                     </Col>
-
-
-
-
                     <Col span={8}>
                         <DatePicker placeholder="Date of Service" showTime onOk={this.onOk1} />
 
@@ -173,5 +133,4 @@ class App extends Component {
         );
     }
 }
-
 export default App;
